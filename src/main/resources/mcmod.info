@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "${modId}",
+    "name": "${modName}",
+    "description": "A new age of magic has come, join us in the great unveiling!\n",
+    "version": "${modVersion}",
+    "mcversion": "${minecraftVersion}",
+    "url": "https://github.com/unicornbloods/Arcanum-Unveiled",
+    "updateUrl": "",
+    "authorList": [ "UnicornBlood" ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
