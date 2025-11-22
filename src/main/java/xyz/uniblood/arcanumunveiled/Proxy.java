@@ -26,7 +26,12 @@ import java.util.HashMap;
 
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesBiomeIds;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesConfig;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesDimensionIds;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesWeight;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingBiomeIds;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingConfig;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingDimensionIds;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingWeight;
 
 public interface Proxy {
 
@@ -45,7 +50,7 @@ public interface Proxy {
             final NBTStructure stone_ring = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/stone_ring.nbt"));
             final NBTStructure hilltop_stones = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/hilltop_stones.nbt"));
 
-            NBTGeneration.registerStructure(0, new SpawnCondition("hilltop_stones") {{
+            NBTGeneration.registerStructure(hillTopStonesDimensionIds, new SpawnCondition("hilltop_stones") {{
                 spawnWeight = hillTopStonesWeight;
 
                 canSpawn = biome -> {
@@ -67,6 +72,7 @@ public interface Proxy {
                     conformToTerrain = false;
 
                     blockTable = new HashMap<>() {{
+                        // TODO: Aura node once I rewrite blockAiry
                         put(Blocks.vine, new StructureUtils.HilltopStonesVines());
                         put(Blocks.stone, new StructureUtils.EldritchStoneStone());
                     }};
@@ -77,9 +83,31 @@ public interface Proxy {
 
             NBTGeneration.registerStructure(0, new SpawnCondition("stone_ring") {{
                 spawnWeight = 60;
+            NBTGeneration.registerStructure(stoneRingDimensionIds, new SpawnCondition("stone_ring") {{
+                spawnWeight = stoneRingWeight;
+
+                canSpawn = biome -> {
+
+                    if (stoneRingConfig) {
+                        for (int id : stoneRingBiomeIds) {
+                            if (biome.isEqualTo(BiomeGenBase.getBiome(id))) {
+                                return true;
+                            }
+                        }
+                    } else {
+                        return biome.rootHeight >= 0.0;
+                    }
+                    return false;
+                };
 
                 structure = new JigsawPiece("stone_ring", stone_ring, -4) {{
                     conformToTerrain = false;
+
+                    blockTable = new HashMap<>() {{
+                        // TODO: Aura node once I rewrite blockAiry
+                        // TODO: Cultists, probably use pooled version
+                        put(Blocks.stone, new StructureUtils.EldritchStoneStone());
+                    }};
                 }};
             }});
 
