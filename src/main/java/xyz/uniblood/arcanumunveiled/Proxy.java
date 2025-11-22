@@ -42,6 +42,7 @@ public interface Proxy {
 
             DimensionManager.registerProviderType(Config.dimensionOuterId, WorldProviderEldritch.class, false);
             DimensionManager.registerDimension(Config.dimensionOuterId, Config.dimensionOuterId);
+            final NBTStructure stone_ring = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/stone_ring.nbt"));
             final NBTStructure hilltop_stones = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/hilltop_stones.nbt"));
 
             NBTGeneration.registerStructure(0, new SpawnCondition("hilltop_stones") {{
@@ -58,7 +59,7 @@ public interface Proxy {
                     } else {
                         return biome.rootHeight >= 1.0;
                     }
-                    
+
                     return false;
                 };
 
@@ -71,6 +72,15 @@ public interface Proxy {
                     }};
                 }};
 
+            }});
+
+
+            NBTGeneration.registerStructure(0, new SpawnCondition("stone_ring") {{
+                spawnWeight = 60;
+
+                structure = new JigsawPiece("stone_ring", stone_ring, -4) {{
+                    conformToTerrain = false;
+                }};
             }});
 
         }
