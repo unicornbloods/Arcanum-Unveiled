@@ -7,9 +7,13 @@ import java.io.File;
 public class WorldGenerationConfig {
 
     //Category names
+    static final String categoryStructureCustomization = "Structure Biome Config Toggle";
     static final String categoryStructureWeights = "Structure Weights";
     static final String categoryStructureBiomes = "Structure Biomes";
     static final String categoryStructureDimensions = "Structure Dimensions";
+
+    // Structure biome customization toggles
+    public static boolean hillTopStonesConfig = false;
 
     // Structure spawn weights
     public static int hillTopStonesWeight = 1;
@@ -37,6 +41,11 @@ public class WorldGenerationConfig {
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
 
+        // Structure biome customization toggles
+        configuration.addCustomCategoryComment(categoryStructureCustomization,
+                "Use this section to enable / disable the biome spawn conditions config per structure");
+        hillTopStonesConfig = configuration.getBoolean("Enable Hill Top Stones Biome Configuration", categoryStructureCustomization, hillTopStonesConfig, "");
+
 
         // Structure spawn weights
         configuration.addCustomCategoryComment(categoryStructureWeights,
@@ -46,6 +55,7 @@ public class WorldGenerationConfig {
         // Structure biome ids
         configuration.addCustomCategoryComment(categoryStructureBiomes, "This is just a numerical list of biome ids that is checked against for structure spawning.");
         configuration.get(categoryStructureBiomes, "Hill Top Stones Biome Id Whitelist", hillTopStonesBiomeIds, "").getIntList();
+
 
         // Structure dimension ids
         configuration.addCustomCategoryComment(categoryStructureDimensions, "This is just a numerical list of dimension ids that is checked against for structure spawning.");
