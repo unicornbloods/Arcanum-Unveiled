@@ -23,8 +23,8 @@ public class StructureUtils {
         }
     }
 
-    public static class HilltopStonesStone extends StructureComponent.BlockSelector {
-        public HilltopStonesStone() {
+    public static class EldritchStoneStone extends StructureComponent.BlockSelector {
+        public EldritchStoneStone() {
         }
 
         /**

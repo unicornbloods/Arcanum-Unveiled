@@ -68,7 +68,7 @@ public interface Proxy {
 
                     blockTable = new HashMap<>() {{
                         put(Blocks.vine, new StructureUtils.HilltopStonesVines());
-                        put(Blocks.stone, new StructureUtils.HilltopStonesStone());
+                        put(Blocks.stone, new StructureUtils.EldritchStoneStone());
                     }};
                 }};
 
