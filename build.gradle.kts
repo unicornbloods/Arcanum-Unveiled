@@ -1,5 +1,5 @@
 plugins {
-    id("com.falsepattern.fpgradle-mc") version "3.1.0"
+    id("com.falsepattern.fpgradle-mc") version "3.2.2"
 //    kotlin("jvm") version "2.2.0"  //If you want Kotlin. You need to also uncomment the scala line in gradle.properties, and enable Forgelin in the minecraft_fp block!
 //    scala  //If you want Scala, not compatible with jabel/modern java!
     kotlin("jvm")
@@ -169,6 +169,10 @@ repositories {
      * The exclusive(...) method can be used as a simplified wrapper on top of exclusiveContent. See the FPGradle sources for details.
      */
 
+    repositories {
+        exclusive(maven("cursemaven", "https://cursemaven.com"), "curse.maven")
+    }
+
     cursemavenEX()
     mega()
     horizon()
@@ -229,13 +233,15 @@ dependencies {
 
     api(deobfCurse("baubles-expanded-gtnh-1238321:7126889"))
     api(deobfCurse("thaumcraft-223628:2227552"))
+    api(deobfCurse("nbtstructurelib-1388190:7244088"))
 
     api("com.github.GTNewHorizons:GTNHLib:0.8.4")
 
     annotationProcessor("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
     compileOnly("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
 
-    devOnlyNonPublishable(deobfCurse("et-futurum-requiem-441392:5873837"))
+    runtimeOnlyNonPublishable(deobfCurse("et-futurum-requiem-441392:5873837"))
 
     runtimeOnlyNonPublishable("codechicken:notenoughitems-mc1.7.10:2.8.35-mega:dev")
+    runtimeOnlyNonPublishable(deobfCurse("worldedit-225608:2309699"))
 }
