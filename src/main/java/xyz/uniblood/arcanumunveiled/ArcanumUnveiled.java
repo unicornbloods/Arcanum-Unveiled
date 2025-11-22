@@ -10,7 +10,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
         name = Tags.MOD_NAME,
         version = Tags.MOD_VERSION,
         acceptedMinecraftVersions = "[1.7.10]",
-        dependencies = "after:Thaumcraft;")
+        dependencies = "after:Baubles|Expanded; after:nbtlib; after:Thaumcraft;")
 public class ArcanumUnveiled implements Proxy {
     @SidedProxy(clientSide = Tags.ROOT_PKG + ".Proxy$Client", serverSide = Tags.ROOT_PKG + ".Proxy$Server")
     public static Proxy proxy;
