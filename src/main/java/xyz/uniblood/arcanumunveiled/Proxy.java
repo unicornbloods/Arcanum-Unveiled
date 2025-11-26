@@ -28,6 +28,10 @@ import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.h
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesConfig;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesDimensionIds;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesWeight;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundBiomeIds;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundConfig;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundConformToTerrain;
+import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundDimensionIds;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingBiomeIds;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingConfig;
 import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingDimensionIds;
@@ -49,7 +53,9 @@ public interface Proxy {
             DimensionManager.registerDimension(Config.dimensionOuterId, Config.dimensionOuterId);
             final NBTStructure stone_ring = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/stone_ring.nbt"));
             final NBTStructure hilltop_stones = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/hilltop_stones.nbt"));
+            final NBTStructure mound = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/mound.nbt"));
 
+            // Hilltop Stones
             NBTGeneration.registerStructure(hillTopStonesDimensionIds, new SpawnCondition("hilltop_stones") {{
                 spawnWeight = hillTopStonesWeight;
 
@@ -71,6 +77,8 @@ public interface Proxy {
                 structure = new JigsawPiece("hilltop_stones", hilltop_stones, 0) {{
                     conformToTerrain = false;
 
+                    platform = new StructureUtils.EldritchStoneStone();
+
                     blockTable = new HashMap<>() {{
                         // TODO: Aura node once I rewrite blockAiry
                         put(Blocks.vine, new StructureUtils.HilltopStonesVines());
@@ -80,9 +88,7 @@ public interface Proxy {
 
             }});
 
-
-            NBTGeneration.registerStructure(0, new SpawnCondition("stone_ring") {{
-                spawnWeight = 60;
+            // Stone Ring
             NBTGeneration.registerStructure(stoneRingDimensionIds, new SpawnCondition("stone_ring") {{
                 spawnWeight = stoneRingWeight;
 
@@ -95,7 +101,7 @@ public interface Proxy {
                             }
                         }
                     } else {
-                        return biome.rootHeight >= 0.0;
+                        return biome.rootHeight >= 0.1;
                     }
                     return false;
                 };
@@ -103,12 +109,54 @@ public interface Proxy {
                 structure = new JigsawPiece("stone_ring", stone_ring, -4) {{
                     conformToTerrain = false;
 
+                    platform = new StructureUtils.EldritchStoneStone();
+
                     blockTable = new HashMap<>() {{
                         // TODO: Aura node once I rewrite blockAiry
                         // TODO: Cultists, probably use pooled version
                         put(Blocks.stone, new StructureUtils.EldritchStoneStone());
                     }};
                 }};
+            }});
+
+            // Mound
+            NBTGeneration.registerStructure(moundDimensionIds, new SpawnCondition("mound") {{
+
+                // TODO: Make mound sinister nodes a lot more rare and / or disable-able
+
+                spawnWeight = hillTopStonesWeight;
+
+                canSpawn = biome -> {
+
+                    if (moundConfig) {
+                        for (int id : moundBiomeIds) {
+                            if (biome.isEqualTo(BiomeGenBase.getBiome(id))) {
+                                return true;
+                            }
+                        }
+                    } else {
+                        // I never actually tested min below 0.0.
+                        final float minHeightVatiation = 0.0F;
+                        // Setting this to 0.3 allows the structure to spawn in forests and similar biomes as well.
+                        final float maxHeightVatiation = 0.2F;
+
+                        // This targets flatter biomes by default to avoid shredding on hills.
+                        return biome.heightVariation > minHeightVatiation && biome.heightVariation < maxHeightVatiation;
+                    }
+
+                    return false;
+                };
+
+                structure = new JigsawPiece("mound", mound, -9) {{
+                    conformToTerrain = moundConformToTerrain;
+
+                    blockTable = new HashMap<>() {{
+                        // TODO: Aura node once I rewrite blockAiry
+                        put(Blocks.cobblestone, new StructureUtils.structureMossyStone());
+                        put(Blocks.stained_hardened_clay, new StructureUtils.structureUrns());
+                    }};
+                }};
+
             }});
 
         }
