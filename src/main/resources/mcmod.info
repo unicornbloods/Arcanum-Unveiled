@@ -7,9 +7,11 @@
     "mcversion": "${minecraftVersion}",
     "url": "https://github.com/unicornbloods/Arcanum-Unveiled",
     "updateUrl": "",
-    "authorList": [ "UnicornBlood" ],
+    "authorList": [
+      "UnicornBlood"
+    ],
     "credits": "",
-    "logoFile": "",
+    "logoFile": "arcanum_unveiled_logo.png",
     "screenshots": [],
     "dependencies": []
   }
