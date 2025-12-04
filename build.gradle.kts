@@ -182,7 +182,7 @@ dependencies {
 
     api(deobfCurse("baubles-expanded-gtnh-1238321:7126889"))
     api(deobfCurse("thaumcraft-223628:2227552"))
-    api(deobfCurse("nbtstructurelib-1388190:7259744"))
+//    api(deobfCurse("thaumcraft-223628:2629023"))
     api("com.github.MellowArpeggiation:NBTStructureLib:0.6.1:dev")
 
     apiSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.10.5")
