@@ -24,18 +24,19 @@ import xyz.uniblood.arcanumunveiled.compat.EtFuturum;
 
 import java.util.HashMap;
 
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesBiomeIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesConfig;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesDimensionIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.hillTopStonesWeight;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundBiomeIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundConfig;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundConformToTerrain;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.moundDimensionIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingBiomeIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingConfig;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingDimensionIds;
-import static xyz.uniblood.arcanumunveiled.common.config.WorldGenerationConfig.stoneRingWeight;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureBiomesConfig.HillTopStonesBiomeIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureBiomesConfig.MoundBiomeIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureBiomesConfig.StoneRingBiomeIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureCustomizationConfig.HillTopStonesConfig;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureCustomizationConfig.MoundConfig;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureCustomizationConfig.StoneRingConfig;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureDimensionsConfig.HillTopStonesDimensionIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureDimensionsConfig.MoundDimensionIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureDimensionsConfig.StoneRingDimensionIds;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureMiscellaneousConfig.MoundConformToTerrain;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureSpawnWeightConfig.HillTopStonesWeight;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureSpawnWeightConfig.MoundWeight;
+import static xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig.StructureSpawnWeightConfig.StoneRingWeight;
 
 public interface Proxy {
 
@@ -56,13 +57,13 @@ public interface Proxy {
             final NBTStructure mound = new NBTStructure(new ResourceLocation(Tags.MOD_ID, "structures/mound.nbt"));
 
             // Hilltop Stones
-            NBTGeneration.registerStructure(hillTopStonesDimensionIds, new SpawnCondition("hilltop_stones") {{
-                spawnWeight = hillTopStonesWeight;
+            NBTGeneration.registerStructure(HillTopStonesDimensionIds, new SpawnCondition("hilltop_stones") {{
+                spawnWeight = HillTopStonesWeight;
 
                 canSpawn = biome -> {
 
-                    if (hillTopStonesConfig) {
-                        for (int id : hillTopStonesBiomeIds) {
+                    if (HillTopStonesConfig) {
+                        for (int id : HillTopStonesBiomeIds) {
                             if (biome.isEqualTo(BiomeGenBase.getBiome(id))) {
                                 return true;
                             }
@@ -89,13 +90,13 @@ public interface Proxy {
             }});
 
             // Stone Ring
-            NBTGeneration.registerStructure(stoneRingDimensionIds, new SpawnCondition("stone_ring") {{
-                spawnWeight = stoneRingWeight;
+            NBTGeneration.registerStructure(StoneRingDimensionIds, new SpawnCondition("stone_ring") {{
+                spawnWeight = StoneRingWeight;
 
                 canSpawn = biome -> {
 
-                    if (stoneRingConfig) {
-                        for (int id : stoneRingBiomeIds) {
+                    if (StoneRingConfig) {
+                        for (int id : StoneRingBiomeIds) {
                             if (biome.isEqualTo(BiomeGenBase.getBiome(id))) {
                                 return true;
                             }
@@ -120,16 +121,16 @@ public interface Proxy {
             }});
 
             // Mound
-            NBTGeneration.registerStructure(moundDimensionIds, new SpawnCondition("mound") {{
+            NBTGeneration.registerStructure(MoundDimensionIds, new SpawnCondition("mound") {{
 
                 // TODO: Make mound sinister nodes a lot more rare and / or disable-able
 
-                spawnWeight = hillTopStonesWeight;
+                spawnWeight = MoundWeight;
 
                 canSpawn = biome -> {
 
-                    if (moundConfig) {
-                        for (int id : moundBiomeIds) {
+                    if (MoundConfig) {
+                        for (int id : MoundBiomeIds) {
                             if (biome.isEqualTo(BiomeGenBase.getBiome(id))) {
                                 return true;
                             }

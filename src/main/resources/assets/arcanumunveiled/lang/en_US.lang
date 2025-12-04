@@ -1,0 +1,44 @@
+
+# Configs
+
+# General config file
+# Ids
+config.arcanumunveiled.config.general.CategoryIds=General Identifiers
+config.arcanumunveiled.config.general.CategoryIds.tooltip=Various identifiers from throughout the mod
+
+# World generation config file
+# Structure Customization Category
+config.arcanumunveiled.config.worldgeneration.CategoryStructureCustomization=Structure Customization Toggles
+config.arcanumunveiled.config.worldgeneration.CategoryStructureCustomization.tooltip=Use this section to enable / disable the biome spawn conditions config per structure.
+config.arcanumunveiled.config.worldgeneration.HillTopStonesConfig=Hill Top Stones Biome Configuration
+config.arcanumunveiled.config.worldgeneration.StoneRingConfig=Stone Ring Biome Configuration
+config.arcanumunveiled.config.worldgeneration.MoundConfig=Mound Biome Configuration
+
+# Structure Weights Category
+config.arcanumunveiled.config.worldgeneration.CategoryStructureWeights=Structure Weights
+config.arcanumunveiled.config.worldgeneration.CategoryStructureWeights.tooltip=A value of 0 is off. A value of 32 is 32 times more common than a structure of value 1. Be sure to check the nbtlib.cfg for more.
+config.arcanumunveiled.config.worldgeneration.HillTopStonesWeight=Hill Top Stones Spawn Weight
+config.arcanumunveiled.config.worldgeneration.StoneRingWeight=Stone Ring Spawn Weight
+config.arcanumunveiled.config.worldgeneration.MoundWeight=Mound Spawn Weight
+
+
+# Structure Biome Ids
+config.arcanumunveiled.config.worldgeneration.CategoryStructureBiomes=Structure Biome Whitelists
+config.arcanumunveiled.config.worldgeneration.CategoryStructureBiomes.tooltip=This is just a numerical list of biome ids that is checked against for structure spawning.
+config.arcanumunveiled.config.worldgeneration.HillTopStonesBiomeIds=Hill Top Stones Biome Id Whitelist
+config.arcanumunveiled.config.worldgeneration.StoneRingsBiomeIds=Stone Ring Biome Id Whitelist
+config.arcanumunveiled.config.worldgeneration.MoundBiomeIds=Mound Biome Id Whitelist
+
+# Structure Dimension Ids
+config.arcanumunveiled.config.worldgeneration.CategoryStructureDimensions=Structure Dimension Whitelists
+config.arcanumunveiled.config.worldgeneration.CategoryStructureDimensions.tooltip=This is just a numerical list of dimension ids that is checked against for structure spawning. If it is not a surface type world the structures will spawn above bedrock.
+config.arcanumunveiled.config.worldgeneration.HillTopStonesDimensionIds=Hill Top Stones Dimension Id Whitelist
+config.arcanumunveiled.config.worldgeneration.StoneRingsDimensionIds=Stone Ring Dimension Id Whitelist
+config.arcanumunveiled.config.worldgeneration.MoundDimensionIds=Mound Dimension Id Whitelist
+
+# Structure Miscellaneous Category
+config.arcanumunveiled.config.worldgeneration.CategoryStructureMiscellaneous=Structure Miscellaneous
+config.arcanumunveiled.config.worldgeneration.CategoryStructureMiscellaneous.tooltip=Category for anything that doesn't fit in the others.
+config.arcanumunveiled.config.worldgeneration.MoundConformToTerrain=Enable Mounds to conform to the terrain
+config.arcanumunveiled.config.worldgeneration.MoundConformToTerrain.tooltip=This can add a nice deteriorated look. It will shred them on the side of large hills though.
+

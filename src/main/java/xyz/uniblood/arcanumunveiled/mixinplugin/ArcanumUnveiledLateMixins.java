@@ -3,7 +3,8 @@ package xyz.uniblood.arcanumunveiled.mixinplugin;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 import org.jetbrains.annotations.NotNull;
-import xyz.uniblood.arcanumunveiled.common.config.ConfigUtils;
+import xyz.uniblood.arcanumunveiled.config.GeneralConfig;
+import xyz.uniblood.arcanumunveiled.config.WorldGenerationConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,10 @@ public class ArcanumUnveiledLateMixins implements ILateMixinLoader {
         // Client check not needed yet
 //        boolean client = FMLLaunchHandler.side().isClient();
         List<String> mixins = new ArrayList<>();
-        ConfigUtils configUtils = new ConfigUtils();
 
-        configUtils.initConfigs();
+        // Initialize my configs as early as possible.
+        GeneralConfig.init();
+        WorldGenerationConfig.init();
 
         mixins.add("MixinThaumcraft");
 
