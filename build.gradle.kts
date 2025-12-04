@@ -1,5 +1,5 @@
 plugins {
-    id("com.falsepattern.fpgradle-mc") version "3.2.2"
+    id("com.falsepattern.fpgradle-mc") version "3.3.0"
 //    kotlin("jvm") version "2.2.0"  //If you want Kotlin. You need to also uncomment the scala line in gradle.properties, and enable Forgelin in the minecraft_fp block!
 //    scala  //If you want Scala, not compatible with jabel/modern java!
     kotlin("jvm")
@@ -170,8 +170,7 @@ repositories {
      */
 
 
-    exclusive(maven("cursemaven", "https://cursemaven.com"), "curse.maven")
-
+    exclusive(jitpack(), "com.github.MellowArpeggiation")
 
     mavenpattern()
     mega()
@@ -184,6 +183,7 @@ dependencies {
     api(deobfCurse("baubles-expanded-gtnh-1238321:7126889"))
     api(deobfCurse("thaumcraft-223628:2227552"))
     api(deobfCurse("nbtstructurelib-1388190:7259744"))
+    api("com.github.MellowArpeggiation:NBTStructureLib:0.6.1:dev")
 
     apiSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.10.5")
 
