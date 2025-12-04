@@ -30,6 +30,7 @@ public final class ConfigGuiFactory implements SimpleGuiFactory {
         result.add(WorldGenerationConfig.StructureBiomesConfig.class);
         result.add(WorldGenerationConfig.StructureDimensionsConfig.class);
         result.add(WorldGenerationConfig.StructureMiscellaneousConfig.class);
+        result.add(WorldGenerationConfig.OreGenerationConfig.class);
         return result.toArray(new Class<?>[0]);
     }
 

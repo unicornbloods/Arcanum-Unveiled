@@ -19,6 +19,7 @@ public final class WorldGenerationConfig {
         StructureBiomesConfig.init();
         StructureDimensionsConfig.init();
         StructureMiscellaneousConfig.init();
+        OreGenerationConfig.init();
     }
 
 
@@ -197,6 +198,35 @@ public final class WorldGenerationConfig {
         @Config.DefaultBoolean(true)
         public static boolean MoundConformToTerrain;
 
+    }
+
+    @Config(modid = Tags.MOD_ID,
+            category = worldGenerationConfigNumericKeyBase + "_ore_generation",
+            customPath = worldGenerationConfigFile
+    )
+    @Config.LangKey(worldGenerationConfigLangKeyBase + "CategoryOreGeneration")
+    public final class OreGenerationConfig {
+        private OreGenerationConfig() {
+        }
+
+        static {
+            ConfigurationManager.selfInit();
+        }
+
+        public static void init() {
+        }
+
+        @Config.Name("Biome Blacklist")
+        @Config.LangKey(worldGenerationConfigLangKeyBase + "oreGenerationBiomeIdBlacklist")
+        @Config.RequiresWorldRestart
+        @Config.DefaultIntList({})
+        public static int[] OreGenerationBiomeIdBlacklist;
+
+        @Config.Name("Dimension Blacklist")
+        @Config.LangKey(worldGenerationConfigLangKeyBase + "oreGenerationDimensionIdBlacklist")
+        @Config.RequiresWorldRestart
+        @Config.DefaultIntList({-1, 1})
+        public static int[] OreGenerationDimensionIdBlacklist;
     }
 
 }

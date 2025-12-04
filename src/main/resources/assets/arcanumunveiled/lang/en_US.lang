@@ -42,3 +42,9 @@ config.arcanumunveiled.config.worldgeneration.CategoryStructureMiscellaneous.too
 config.arcanumunveiled.config.worldgeneration.MoundConformToTerrain=Enable Mounds to conform to the terrain
 config.arcanumunveiled.config.worldgeneration.MoundConformToTerrain.tooltip=This can add a nice deteriorated look. It will shred them on the side of large hills though.
 
+# Ore Generation
+config.arcanumunveiled.config.worldgeneration.CategoryOreGeneration=Ore Generation
+config.arcanumunveiled.config.worldgeneration.CategoryOreGeneration.tooltip=Category for everything ore generation.
+config.arcanumunveiled.config.worldgeneration.oreGenerationBiomeIdBlacklist=Biome Blacklist
+config.arcanumunveiled.config.worldgeneration.oreGenerationDimensionIdBlacklist=Dimension Blacklist
+
