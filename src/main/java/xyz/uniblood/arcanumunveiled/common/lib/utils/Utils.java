@@ -1,73 +1,38 @@
 package xyz.uniblood.arcanumunveiled.common.lib.utils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-
-/**
- * Utility class containing various helper methods.
- */
 public class Utils {
+    public static final int[] colors = new int[]{15790320, 15435844, 12801229, 6719955, 14602026, 4312372, 14188952, 4408131, 10526880, 2651799, 8073150, 2437522, 5320730, 3887386, 11743532, 1973019};
+    public static final String[] colorNames = new String[]{"White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"};
 
-    /**
-     * Checks if a specific bit in an integer value is set (equal to 1).
-     *
-     * @param value The integer value to check.
-     * @param bit The index of the bit to check (0-indexed from the right).
-     * @return {@code true} if the specified bit is set, {@code false} otherwise.
-     */
     public static boolean getBit(int value, int bit) {
         return (value & 1 << bit) != 0;
     }
 
-    /**
-     * Sets a specific bit in an integer value to 1.
-     *
-     * @param value The integer value to modify.
-     * @param bit The index of the bit to set (0-indexed from the right).
-     * @return The modified integer value with the specified bit set.
-     */
     public static int setBit(int value, int bit) {
         return value | 1 << bit;
     }
 
-    /**
-     * Finds the first uncovered Y-level (block position in the vertical axis) at a given (X, Z) coordinate
-     * that is suitable for placing a structure.
-     * <p>
-     * For non-Nether worlds (dimension ID != -1), it searches downwards from the top of the chunk's filled segment
-     * for a non-replaceable, movement-blocking block that is not leaves, foliage, or wood, and returns the block
-     * position *above* that block.
-     * <p>
-     * For Nether worlds (dimension ID == -1), it searches upwards from Y=5 until it finds an air block *above*
-     * a non-air block.
-     *
-     * @param world The world object.
-     * @param x The X-coordinate.
-     * @param z The Z-coordinate.
-     * @return The Y-level suitable for placement.
-     */
-    public static int getFirstUncoveredY(World world, int x, int z) {
-        // Use this for non-nether worlds
-        if (world.provider.dimensionId != -1) {
-            Chunk chunk = world.getChunkFromBlockCoords(x, z);
-            int chunkX = x & 15;
-            int chunkZ = z & 15;
-            for (int yLevel = chunk.getTopFilledSegment() + 15; yLevel > 0; --yLevel) {
-                Block block = chunk.getBlock(chunkX, yLevel, chunkZ);
-                Material material = block.getMaterial();
-                if (material.blocksMovement() && !material.isReplaceable() && !block.isLeaves(world, x, yLevel, z) && !block.isFoliage(world, x, yLevel, z) && !block.isWood(world, x, yLevel, z)) {
-                    return yLevel + 1;
-                }
-            }
-        }
+    public static int clearBit(int value, int bit) {
+        return value & ~(1 << bit);
+    }
 
-        // Use this for nether worlds. The above method tries to place structures on the surface, which is not possible in nether.
-        int yLevel = 5;
-        while (!world.isAirBlock(x, yLevel + 1, z)) {
-            ++yLevel;
+    public static int toggleBit(int value, int bit) {
+        return value ^ 1 << bit;
+    }
+
+    public static byte pack(boolean[] vals) {
+        byte result = 0;
+        for (boolean bit : vals) {
+            result = (byte) (result << 1 | (bit ? 1 : 0) & 1);
         }
-        return yLevel;
+        return result;
+    }
+
+    public static boolean[] unpack(byte val) {
+        boolean[] result = new boolean[8];
+        for (int i = 0; i < 8; ++i) {
+            result[i] = (byte) (val >> 7 - i & 1) == 1;
+        }
+        return result;
     }
 }

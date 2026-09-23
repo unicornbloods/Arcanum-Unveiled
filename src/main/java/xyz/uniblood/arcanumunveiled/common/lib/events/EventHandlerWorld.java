@@ -1,21 +1,34 @@
 package xyz.uniblood.arcanumunveiled.common.lib.events;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import xyz.uniblood.arcanumunveiled.common.lib.world.dimension.MazeHandler;
+import net.minecraft.server.level.ServerLevel;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import xyz.uniblood.arcanumunveiled.ArcanumUnveiled;
 
+/**
+ * Handles world/level events.
+ */
+@EventBusSubscriber(modid = ArcanumUnveiled.MODID)
 public class EventHandlerWorld {
+
     @SubscribeEvent
-    public void worldLoad(WorldEvent.Load event) {
-        if (!event.world.isRemote && event.world.provider.dimensionId == 0) {
-            MazeHandler.loadMaze(event.world);
+    public static void onLevelTick(LevelTickEvent.Post event) {
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            if (serverLevel.getGameTime() % 1200 == 0) { // Every minute
+                for (var player : serverLevel.players()) {
+                    WarpEvents.checkWarpEvent(player);
+                }
+            }
         }
     }
 
     @SubscribeEvent
-    public void worldSave(WorldEvent.Save event) {
-        if (!event.world.isRemote && event.world.provider.dimensionId == 0) {
-            MazeHandler.saveMaze(event.world);
-        }
+    public static void onLevelLoad(LevelEvent.Load event) {
+    }
+
+    @SubscribeEvent
+    public static void onLevelSave(LevelEvent.Save event) {
     }
 }
